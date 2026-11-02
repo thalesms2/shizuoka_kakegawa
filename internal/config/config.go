@@ -11,8 +11,8 @@ type Config struct {
 	DBHost string `env:"DB_HOST" envDefault:"localhost"`
 	DBPort string `env:"DB_PORT" envDefault:"5432"`
 	DBUser string `env:"DB_USER" envRequired:"true"`
-	DBPassword string `env:"DB_USER" envRequired:"true"`
-	DBName string `env:"DB_USER" envRequired:"true"`
+	DBPassword string `env:"DB_PASSWORD" envRequired:"true"`
+	DBName string `env:"DB_NAME" envRequired:"true"`
 }
 
 func LoadConfig() *Config {

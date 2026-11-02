@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS access_histories;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS invoices;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS tenants;

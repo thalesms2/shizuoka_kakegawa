@@ -1,0 +1,37 @@
+name: kakegawa-dev
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-kakegawa}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - kakegawa_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-kakegawa}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ..
+      dockerfile: deployments/Dockerfile
+    env_file:
+      - ../.env
+    environment:
+      PORT: 8080
+      DB_HOST: postgres
+      DB_PORT: 5432
+    ports:
+      - "${API_HOST_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  kakegawa_postgres_data:
